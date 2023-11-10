@@ -1,0 +1,26 @@
+.test-page {
+
+  .button-answer {
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: start;
+    margin: 10px 0;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 24px;
+    transition: 0.3s ease;
+    background-color: #346fb3;
+    color: white; 
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &:active {
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.178);
+    }
+  }
+
+}

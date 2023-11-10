@@ -1,0 +1,11 @@
+<div class="test-page">
+  <div class="container" >
+    <h1 class="title">{{ test.nameTest }}</h1> 
+      <h2>{{ test.questions[testPage].title }}</h2>
+      <div  *ngFor="let answer of test.questions[testPage].answers; index as i">
+        <button class="button-answer" (click)="onSubmit(answer)">
+          <span>{{ i + 1 }}</span>: <span>{{ answer }}</span>
+        </button>
+      </div>
+  </div>
+</div>

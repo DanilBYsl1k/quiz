@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+
+# Angular
+/dist/
+/e2e/
+/angular.json
+/*.js
+/*.map
+/*.d.ts
+
+# Visual Studio Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store

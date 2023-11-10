@@ -1,0 +1,8 @@
+<div class="test-list">
+  <ul class="test-list__list">
+    <li class="test-list__card" *ngFor="let test of testList$ | async"> 
+      <h2>{{ test.nameTest }}</h2>
+      <button [routerLink]="['test',test._id]" [disabled]="test.finish" class="button">select</button>
+    </li>
+  </ul>
+</div>

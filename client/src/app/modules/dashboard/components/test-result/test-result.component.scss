@@ -1,0 +1,14 @@
+.test-result {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__container {
+    outline: 1px solid red;
+  }
+
+  .title {
+    text-align: center;
+  }
+}
