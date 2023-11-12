@@ -6,8 +6,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { TestPageComponent } from './components/test-page/test-page.component';
 import { TestListComponent } from './components/test-list/test-list.component';
 import { TestResultComponent } from './components/test-result/test-result.component';
-
-
+import { PreloaderComponent } from 'src/app/shared/components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,8 @@ import { TestResultComponent } from './components/test-result/test-result.compon
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    PreloaderComponent
   ]
 })
 export class DashboardModule { }

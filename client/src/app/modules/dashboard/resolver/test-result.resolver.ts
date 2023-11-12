@@ -13,14 +13,14 @@ export class TestResultResolver implements Resolve<Observable<object | HttpError
 
   resolve(route: ActivatedRouteSnapshot): any {
     let testId = route.paramMap.get('testId');
-    if(testId) { 
+    if(testId) {
       return this.testsService.testResult(testId).pipe(
-
         catchError((error: HttpErrorResponse)=> {
           this.router.navigate(['/']);
           return of(error)
         })
       )
     } 
+    this.router.navigate(['/']);
   }
 }

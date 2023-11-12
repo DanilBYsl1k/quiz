@@ -1,8 +1,17 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const Schema=mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const authShema = new Schema({
+const testListShema = new Schema({
+  nameTest: {
+    type:String,
+    unique: false
+  },
+  finish: Boolean,
+  mark: Number
+})
+
+const authSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -10,30 +19,11 @@ const authShema = new Schema({
   },
   password: {
     type: String,
-    unique: false,
     required: true
   },
-  testList: [
-    {
-      nameTest: {
-        type: String,
-        required: true,
-        unique: true,
-        ref: 'test-list'
-      },
-      finish: {
-        type: Boolean,
-        required: true,
-        default: false
-      },
-      mark: {
-        type: Number,
-        required: true
-      }
-    }
-  ]
+  testList: [testListShema],
 });
 
-const Auth = mongoose.model('user', authShema);
+const Auth = mongoose.model('user', authSchema);
 
 module.exports = Auth;

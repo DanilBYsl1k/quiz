@@ -9,7 +9,7 @@ export class TestResultGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const { testId } = route.params;
-
+    console.log(testId)
     if (!testId) {
       this.router.navigate(['/dashboard']);
       return false;

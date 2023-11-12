@@ -3,6 +3,7 @@ export interface ITest {
   _id: string;
   nameTest: string;
   finish?: boolean;
+  mark?: number;
 }
 
 export interface IBaseTest extends ITest {

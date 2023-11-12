@@ -5,7 +5,17 @@
   justify-content: center;
 
   &__container {
-    outline: 1px solid red;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button {
+    width: 300px;
   }
 
   .title {

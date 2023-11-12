@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { TestsService } from 'src/app/shared/services/tests.service';
 
@@ -10,11 +11,9 @@ import { TestsService } from 'src/app/shared/services/tests.service';
 export class TestListComponent {
   testList$ = this.testsService.testList();
 
-  constructor(
-    private testsService: TestsService
-  ) {}
+  constructor(private testsService: TestsService, private router: Router) {}
 
-  selectedTest() {
-
+  checkResult(testId: string) {
+    this.router.navigate(['/dashboard/test-result', { testId:testId }])
   }
 }

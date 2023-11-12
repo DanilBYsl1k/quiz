@@ -7,9 +7,18 @@ const QuestionSchema = new Schema({
   correct: String
 });
 
+const UserAnswerSchema = new Schema({
+  userAnswer: String,
+  isCorrect: Boolean
+})
+
 const TestListSchema = new Schema({
-  nameTest: String,
-  questions: [QuestionSchema]
+  nameTest: {
+    type: String,
+    unique: true
+  },
+  questions: [QuestionSchema],
+  result: [UserAnswerSchema]
 });
 
 const TestList = mongoose.model('test-list', TestListSchema);

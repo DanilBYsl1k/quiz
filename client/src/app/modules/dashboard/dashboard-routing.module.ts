@@ -28,7 +28,6 @@ const routes: Routes = [
   {
     path: 'test-result',
     component: TestResultComponent,
-    canActivate: [TestResultGuard], 
     resolve: { result: TestResultResolver }
   }
 ];

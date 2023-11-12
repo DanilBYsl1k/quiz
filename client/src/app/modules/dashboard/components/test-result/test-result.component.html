@@ -1,8 +1,12 @@
 <div class="test-result">
   <div class="container test-result__container">
-    <h1 class="title">Your result</h1>
-    <div>
-      qwe
+    <h1 class="title">Test finished</h1>
+
+    <div class="test-result__box">
+      <h2>Test: {{ result.nameTest }}</h2>
+      
+      <p>your test score {{ result.mark }} / 5</p>
+      <button class="button" routerLink="/">ok</button>
     </div>
   </div>
 </div>
