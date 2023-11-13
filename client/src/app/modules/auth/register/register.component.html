@@ -1,0 +1,14 @@
+<div class="register">
+  <h1>Register</h1>
+  <form class="register__window" [formGroup]="form">
+    <div class="input-box">
+      <label for="register">email</label>
+      <input formControlName="email" type="text" id="login" class="input">
+    </div>
+    <div class="input-box">
+      <label for="password">password</label>
+      <input formControlName="password" type="text" id="password" class="input">
+    </div>
+    <button [disabled]="this.form.invalid" class="button" (click)="onSubmit()">Register</button>
+  </form>
+</div>

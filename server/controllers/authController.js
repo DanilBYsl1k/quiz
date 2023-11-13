@@ -30,9 +30,10 @@ class AuthController {
 
       const hashPassword = bcrypt.hashSync(password, 7);
       const user = new User({ email, password: hashPassword});
-      
+      const token = generateAccessToken(user._id);
+
       await user.save();
-      return res.json({ message: 'User create' });
+      return res.json({ message: 'User create', token });
     } catch (error) {
       res.status(400).json({ message: 'Registration Error', error })
     }

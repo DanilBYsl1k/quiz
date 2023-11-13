@@ -1,0 +1,26 @@
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  
+  &__window {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 500px;
+    height: 500px;
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 20px;
+      margin: 10px 0;
+      text-transform: uppercase;
+    }
+  }
+}
