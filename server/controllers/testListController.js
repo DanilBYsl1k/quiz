@@ -12,11 +12,13 @@ class TestListController {
       }
 
       const { testList: userTestList, _id } = user;
+
       if(userTestList.length < 1) {
         await User.updateOne({ _id: _id }, { $push: { testList } });
       }
 
       const { testList: userTests } = await User.findOne({email: req.params['user']})
+
       res.status(202).json(userTests);
     } catch (error) {
       return res.status(404).json({error: 'something went wrong'})
@@ -25,15 +27,14 @@ class TestListController {
 
   async getTest(req, res) {
     try {
-      const _id = req.params.id;
-      const test = await TestList.findById(_id).select('-questions.correct');
-      const { testList: userTestList } = await User.findOne({ 'testList._id': _id }, { 'testList.$': 1 });
-      const [array] = userTestList;
-     
+      const { id, email } = req.params;
+      const test = await TestList.findById(id).select('-questions.correct');
+      const {testList: list} = await User.findOne({ 'testList._id': id, 'email': email }, { 'testList.$': 1 });
+      const [ array ] = list;
+
       if(!test) {
         return res.status(404).json({ message: 'test not found' });
       }
-
       if(array.finish) {
         return res.status(400).json({ message: 'test was finish' });
       }

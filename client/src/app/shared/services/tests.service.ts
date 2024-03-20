@@ -1,30 +1,31 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, debounceTime, delay, of, takeUntil } from 'rxjs';
+import { Observable, catchError, debounceTime, delay, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { ITest, testResult } from '../interface/test.interface';
 import { environment } from 'src/environment/environment.dev';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestsService {
   token: any = JSON.parse(localStorage.getItem('token')!) || null
- 
+
   constructor(private http: HttpClient, private router: Router) { }
 
   testList(): Observable<ITest[]> {
     let { user } = this.token;
-    return this.http.get<ITest[]>(`${environment.BASE_URL}test/list/${user}`);
+    return this.http.get<ITest[]>(`${environment.BASE_URL}testList/list/${user}`);
   };
 
   test(id: string): Observable<ITest> {
-    return this.http.get<ITest>(`${environment.BASE_URL}test/test/${id}`);
+    let { user } = this.token;
+    return this.http.get<ITest>(`${environment.BASE_URL}testList/test/${id}/${user}`);
   };
 
   testFinish(result: testResult): Observable<object | HttpErrorResponse> {
-    return this.http.post(`${environment.BASE_URL}test/finish`, { ...result, email: this.token.user }).pipe(
+    return this.http.post(`${environment.BASE_URL}testList/finish`, { ...result, email: this.token.user }).pipe(
       debounceTime(2000),
       catchError((error: HttpErrorResponse) => {
         console.error('Error:', error);
@@ -36,7 +37,7 @@ export class TestsService {
   };
 
   testResult(id: string) {
-    return this.http.post(`${environment.BASE_URL}test/result`, {id, email: this.token.user}).pipe(); 
+    return this.http.post(`${environment.BASE_URL}testList/result`, {id, email: this.token.user}).pipe();
   };
 }
 

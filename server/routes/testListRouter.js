@@ -1,14 +1,11 @@
-const Router = require('express');
-
+const { Router } = require('express');
 const controller = require('../controllers/testListController');
-const router = new Router;
 
-router.get('/test/:id', controller.getTest);
-router.get('/list/:user', controller.getTestList);  
+const router = Router();
 
-router.post('/finish', controller.testFinish);
-router.post('/result', controller.testResult);
-
+router.get('/testList/list/:user', controller.getTestList);
+router.get('/testList/test/:id/:email', controller.getTest);
+router.post('/testList/finish', controller.testFinish);
+router.post('/testList/result', controller.testResult);
 
 module.exports = router;
-
