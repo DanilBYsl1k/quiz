@@ -28,11 +28,13 @@ export class RegisterComponent {
     this.form= this.fb.group({
       email: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [Validators.required])
-    }) 
+    })
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 
   onSubmit(): void {

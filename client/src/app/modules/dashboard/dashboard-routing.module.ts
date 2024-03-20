@@ -6,22 +6,21 @@ import { TestListComponent } from './components/test-list/test-list.component';
 import { TestPageComponent } from './components/test-page/test-page.component';
 import { GetTestResolver } from './resolver/get-test.resolver';
 import { TestResultComponent } from './components/test-result/test-result.component';
-import { TestResultGuard } from 'src/app/core/guards/test-result.guard';
 import { TestResultResolver } from './resolver/test-result.resolver';
 
 const routes: Routes = [
   {
-    path: '', 
-    component: MainDashboardComponent, 
+    path: '',
+    component: MainDashboardComponent,
     children: [
       {
-        path: '', 
+        path: '',
         component: TestListComponent
       },
-    ] 
+    ]
   },
   {
-    path: 'test/:id', 
+    path: 'test/:id',
     component: TestPageComponent,
     resolve: { testResolve: GetTestResolver }
   },

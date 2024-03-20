@@ -1,0 +1,15 @@
+<header class="header">
+  <div class="container header__container">
+    <h1>Quiz</h1>
+    <nav class="header__navigation">
+      <ng-container *ngIf="!localStorage">
+        <div><a routerLink="/auth/register">Register</a></div>
+        <div><a routerLink="/auth/login">Login</a></div>
+      </ng-container>
+      <ng-container *ngIf="localStorage">
+        <div><a routerLink="/dashboard">Dashboard</a></div>
+        <div><a routerLink="">Logout</a></div>
+      </ng-container>
+    </nav>
+  </div>
+</header>

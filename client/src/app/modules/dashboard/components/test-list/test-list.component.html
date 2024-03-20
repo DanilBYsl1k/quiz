@@ -1,13 +1,13 @@
 <div class="test-list">
 
   <ng-container *ngIf="testList$ | async as testList; else preloader">
-    <ul class="test-list__list">   
-      <li class="test-list__card" *ngFor="let test of testList"> 
+    <ul class="test-list__list">
+      <li class="test-list__card" *ngFor="let test of testList">
         <h2>{{ test.nameTest }}</h2>
-  
+
         <div class="test-list__mark">{{ test.mark || 0 }} / 5</div>
         <div *ngIf="test.mark">Test done</div>
-  
+
         <button *ngIf="!test.finish else checkResultButton" [routerLink]="['test',test._id]" [disabled]="test.finish" class="button">select</button>
         <ng-template #checkResultButton>
           <button (click)="checkResult(test._id)" class="button">check result</button>
@@ -15,7 +15,7 @@
       </li>
     </ul>
   </ng-container>
-  
+
 </div>
 
 <ng-template #preloader>

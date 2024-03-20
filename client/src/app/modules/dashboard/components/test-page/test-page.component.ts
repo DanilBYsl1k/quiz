@@ -37,7 +37,7 @@ export class TestPageComponent implements OnInit, OnDestroy {
   onSubmit(answer: string | number): void {
     const quantityTest = this.test.questions.length - 1;
 
-    if(quantityTest+1 > +this.testPage){
+    if(quantityTest+ 1 > +this.testPage){
       this.answers.push(answer);
     }
 
