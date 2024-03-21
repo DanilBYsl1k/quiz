@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, debounceTime, delay, of } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { ITest, testResult } from '../interface/test.interface';
+import { ITest, testResult, IBaseTest } from '../interface/test.interface';
 import { environment } from 'src/environment/environment.dev';
 
 @Injectable({
@@ -19,9 +19,9 @@ export class TestsService {
     return this.http.get<ITest[]>(`${environment.BASE_URL}testList/list/${user}`);
   };
 
-  test(id: string): Observable<ITest> {
+  test(id: string): Observable<IBaseTest> {
     let { user } = this.token;
-    return this.http.get<ITest>(`${environment.BASE_URL}testList/test/${id}/${user}`);
+    return this.http.get<IBaseTest>(`${environment.BASE_URL}testList/test/${id}/${user}`);
   };
 
   testFinish(result: testResult): Observable<object | HttpErrorResponse> {
