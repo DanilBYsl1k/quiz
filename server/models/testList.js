@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const QuestionSchema = new Schema({
   title: String,
   answers: [String],
-  correct: String
+  correct: String,
+  _id: { type: Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
 });
 
 const UserAnswerSchema = new Schema({

@@ -22,7 +22,6 @@ export class GetTestResolver implements Resolve<Observable<ITest | HttpErrorResp
   resolve(route: ActivatedRouteSnapshot): Observable<IBaseTest | HttpErrorResponse> {
     return this.testsService.test(route.paramMap.get('id')!).pipe(
       map((testData) => {
-
         testData.questions = this.shuffleArray(testData.questions);
         return testData;
       }),

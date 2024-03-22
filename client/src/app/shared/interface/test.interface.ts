@@ -1,6 +1,6 @@
 
 export interface ITest {
-  _id: string;
+  _id: number;
   nameTest: string;
   finish?: boolean;
   mark?: number;
@@ -16,7 +16,7 @@ export interface ITestQuestion extends ITest {
   correct: string | number;
 }
 
-export interface testResult {
-  answer: (string | number)[];
-  id: string;
+export interface ITestResult {
+  answer: {answer: string | number, id: number }[];
+  id: number;
 }

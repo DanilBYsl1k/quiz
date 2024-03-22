@@ -15,7 +15,7 @@ export class TestPageComponent implements OnInit, OnDestroy {
 
   test: IBaseTest = this.activeRouter.snapshot.data['testResolve'];
   testPage: number;
-  answers: (string | number)[] = [];
+  answers: { answer: string| number, id: number }[] = [];
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -34,20 +34,22 @@ export class TestPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe()
   }
 
-  onSubmit(answer: string | number): void {
+  onSubmit(answer: {id: number, answer: string | number }): void {
     const quantityTest = this.test.questions.length - 1;
 
     if(quantityTest+ 1 > +this.testPage){
-      this.answers.push(answer);
+      this.answers[this.testPage] = { ...answer};      
+      console.log(this.answers)
     }
 
     if(quantityTest > this.testPage) {
       this.router.navigate([], { queryParams: { testPage: ++this.testPage } })
+    
     } else {
       let result = { answer: this.answers, id: this.test._id}
-
+      console.log(result);
       this.subscriptions.add(
-        this.testService.testFinish(result).subscribe(()=> {
+        this.testService.testFinish(result).subscribe(() => {
           this.router.navigate([`dashboard/test-result`, { testId: this.test._id }])
         })
       );

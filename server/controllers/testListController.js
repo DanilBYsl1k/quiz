@@ -47,13 +47,15 @@ class TestListController {
   async testFinish(req, res) {
     try {
       const { id: testId, answer, email } = req.body;
-      const testList = await TestList.findById(testId).select('questions.correct');
+      const correctAnswers = await TestList.findById(testId).select('questions.correct');
       const user = await User.findOne({ 'testList._id': testId, email }, { 'testList.$': 1 });
+      const userAnswers = answer.map((obj)=> {
+        obj.answer = obj.answer.toLowerCase()
+        return obj;
+      });
 
-      const correctAnswers = testList.questions.map(question => question.correct.toLowerCase());
-    
-      const userAnswers = answer.map(ans => ans.toLowerCase());
-      let  correctCount = 1; 
+
+      let correctCount = 1; 
 
       if(!user){
         return res.status(404).json({ message: 'test not found' });
@@ -63,28 +65,29 @@ class TestListController {
         return res.status(400).json({ message: 'the test has already been passed' });
       }
 
-      const result = userAnswers.map((userAns, index) => {
-        let res = { 
-          userAnswer: userAns,
-          isCorrect: correctAnswers[index] === userAns
-        }
-        if(correctAnswers[index] === userAns){
+      for (let index = 0; index < userAnswers.length; index++) {
+        const { id, answer: answers } = userAnswers[index];
+        const { questions } = await TestList.findOne(
+          { "questions": { $elemMatch: { "_id": id } } },
+          { "questions.$": 1 } 
+        );
+        const question = questions[0].correct.toLowerCase();
+
+        if(question === answers) {
           correctCount++
         }
-        return res
-      });
-      
-      let percentMark = correctCount * 100 / correctAnswers.length;
-      let finalMark = correctAnswers.length * percentMark / 100;
+      }
+
+      let percentMark = correctCount * 100 / correctAnswers.questions.length;
+      let finalMark = correctAnswers.questions.length * percentMark / 100;
       await User.updateOne(
         { 'testList._id': testId, "email": email },
-        { 'testList.$.finish': true, 'testList.$.mark': finalMark, 'testList.$.result':result}
+        { 'testList.$.finish': false, 'testList.$.mark': finalMark}
       );
-      
-      console.log(result);
+
       res.status(202).json({status: "success"});
     } catch (error) {
-      res.status(400).json({ message: 'something went wrong' });
+      res.status(400).json({ message: 'something went wrong', error });
     } 
   }
 
@@ -101,3 +104,23 @@ class TestListController {
 };
 
 module.exports = new TestListController();
+
+
+// ///////////////////////
+// const mongoose = require('mongoose');
+// const ObjectId = mongoose.Types.ObjectId;
+
+// const testLists = await TestList.find();
+
+// // Обновить каждый документ
+// testLists.forEach(async (testList) => {
+//   testList.questions.forEach((question) => {
+//     if (!question._id) {
+//       question._id = new ObjectId();
+//     }
+//   });
+
+//   await TestList.updateOne({ _id: testList._id }, { $set: { questions: testList.questions } });
+// });
+
+//////////////////

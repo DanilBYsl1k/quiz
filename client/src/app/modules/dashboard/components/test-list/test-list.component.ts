@@ -13,7 +13,7 @@ export class TestListComponent {
 
   constructor(private testsService: TestsService, private router: Router) {}
 
-  checkResult(testId: string) {
+  checkResult(testId: number) {
     this.router.navigate(['/dashboard/test-result', { testId:testId }])
   }
 }
