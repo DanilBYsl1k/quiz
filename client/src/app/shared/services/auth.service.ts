@@ -4,13 +4,14 @@ import { Observable, tap } from 'rxjs';
 
 import { environment } from 'src/environment/environment.dev';
 import { ILogin } from '../interface/login.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(user: Partial<ILogin>): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(`${environment.BASE_URL}auth/login`, user).pipe(
@@ -26,5 +27,10 @@ export class AuthService {
 
   checkAuth() {
     localStorage.getItem('token')
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth/register']);
   }
 }

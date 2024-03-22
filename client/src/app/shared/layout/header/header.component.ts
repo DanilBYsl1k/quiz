@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Signal, signal } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  localStorage = localStorage.getItem('token');
+  localStorage = signal(localStorage.getItem('token'));
+  
+  constructor(private authService: AuthService){}
+
+  removeItem(): void {
+    this.localStorage.set(localStorage.getItem('token'));
+    this.authService.logout();
+  }
 }
